@@ -12,6 +12,7 @@ class EpicenterController < ApplicationController
 
   def show_user
   	@user = User.find(params[:id])
+    @tweet = Tweet.new
   end
 
   def now_following

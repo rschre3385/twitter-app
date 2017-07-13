@@ -19,19 +19,23 @@
               <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> 
             </p>
             <p><%= tweet.message.html_safe %></p>
+            <% if current_user.disliked? tweet %>
             <%= link_to like_tweet_path(tweet), class: 'Like', method: :put do %>
+  
               <button type="button" class="btn btn-success">
                 <span class="glyphicon glyphicon-thumbs-up glyphicon-align-center" aria-hidden="true"></span>
                 <span class="badge"><%=tweet.get_upvotes.size %></span>
                 
               </button>
             <% end %>
+            <%else%>
             <%= link_to unlike_tweet_path(tweet), class: 'Like', method: :put do %>
                <button type="button" class="btn btn-success">
-                <span class="glyphicon glyphicon-thumbs-down glyphicon-align-center" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-thumbs-up glyphicon-align-center" aria-hidden="true"></span>
                 <span class="badge"><%=tweet.get_upvotes.size %></span>
                 
               </button>
+            <% end %>
             <% end %>
           </div>
       <% end %>

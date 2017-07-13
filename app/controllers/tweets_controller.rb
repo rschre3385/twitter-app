@@ -74,12 +74,12 @@ class TweetsController < ApplicationController
 
   def upvote
     @tweet.upvote_from current_user
-    redirect_to tweets_path   
+    redirect_to request.referrer  
   end
 
   def downvote
     @tweet.downvote_from current_user
-    redirect_to tweets_path   
+    redirect_to request.referrer   
   end 
 
   private
