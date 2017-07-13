@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="col-md-6">
+    <div class="page-header">
+	    <h1>@<%= current_user.username %>'s Twitter Feed</h1>
+    </div>
+  <div class="well well-lg">
+    
+  </div>
+  </div>
+  <div class="col-md-6">
+    <% @following_tweets.each do |tweet| %>
+          <div class="well">
+            <p>
+              <%= image_tag tweet.user.avatar.url, class: "user-pic-md img-circle", height: '40', width: '40' %> 
+              <%= link_to tweet.user.name, show_user_path(id: tweet.user_id) %> 
+              @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> 
+              • 
+              <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %> 
+              <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> 
+            </p>
+            <p><%= tweet.message.html_safe %></p>
+            <%= link_to like_tweet_path(tweet), class: 'Like', method: :put do %>
+              <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-thumbs-up glyphicon-align-center" aria-hidden="true"></span>
+                <span class="badge"><%=tweet.get_upvotes.size %></span>
+                
+              </button>
+            <% end %>
+            <%= link_to unlike_tweet_path(tweet), class: 'Like', method: :put do %>
+               <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-thumbs-down glyphicon-align-center" aria-hidden="true"></span>
+                <span class="badge"><%=tweet.get_upvotes.size %></span>
+                
+              </button>
+            <% end %>
+          </div>
+      <% end %>
+      <%= link_to 'Edit Tweets', tweets_path(params[:id]), class: 'btn btn-success' %> 
+  </div>
+</div>
+
+
+

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header"> 
+  <h1>Tweets</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+        <td><%= tweet.message.html_safe %></td>
+        <td><%= link_to tweet.user.username, show_user_path(id: tweet.user.id) unless tweet.user.blank? %></td>
+        <td><%= link_to 'Show', tweet, class: "btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_tweet_path(tweet), class: "btn btn-info" %></td>
+        <td><%= link_to 'Destroy', tweet, class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tweet', new_tweet_path %>
